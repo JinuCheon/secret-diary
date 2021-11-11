@@ -11,7 +11,7 @@ public class DiaryServiceImpl implements DiaryService{
 
     @Override
     public List<Diary> diaryList() {
-        return null;
+        return memoryDiaryRepository.findAll();
     }
 
     @Override

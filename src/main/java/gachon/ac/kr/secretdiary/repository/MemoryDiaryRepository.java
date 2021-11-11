@@ -2,10 +2,8 @@ package gachon.ac.kr.secretdiary.repository;
 
 import gachon.ac.kr.secretdiary.domain.Diary;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class MemoryDiaryRepository implements DiaryRepository{
 
@@ -14,7 +12,13 @@ public class MemoryDiaryRepository implements DiaryRepository{
 
     @Override
     public Diary save(Diary diary) {
-        diary.setId(++sequence);
+        diary.setId(sequence++);
+
+        Date date_now = new Date(System.currentTimeMillis());
+        SimpleDateFormat fourteen_format = new SimpleDateFormat("yyyyMMdd");;
+
+        diary.setTime(fourteen_format.format(date_now));
+
         store.put(diary.getId(), diary);
         return null;
     }

@@ -3,9 +3,18 @@ package gachon.ac.kr.secretdiary.domain;
 public class Diary {
     private Long id;
     private String name;
+    private String time;
     private String incodHeader;
     private String incodedText;
     private String cryptoText;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public Long getId() {
         return id;

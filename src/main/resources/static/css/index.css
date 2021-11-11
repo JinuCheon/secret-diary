@@ -1,0 +1,11 @@
+#form{
+    width: 30%;
+    float: left;
+    background-color: skyblue;
+}
+
+#right{
+    width: 70%;
+    float: right;
+    background-color: lime;
+}

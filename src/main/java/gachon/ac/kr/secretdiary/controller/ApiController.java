@@ -20,17 +20,19 @@ public class ApiController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/DiaryList")
     public Object diaryList(){
-        return null;
+        System.out.println(diaryService.diaryList());
+        return diaryService.diaryList();
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/NewDiary")
-    public Object newDiary(@RequestBody NewDiaryForm newDiaryForm){
+    public Object newDiary(NewDiaryForm newDiaryForm){
         Diary diary = new Diary();
         diary.setName(newDiaryForm.getName());
         diary.setIncodedText(newDiaryForm.getText());
         diary.setCryptoText(newDiaryForm.getText());
         diaryService.newDiary(diary);
-        return null;
+        System.out.println(diary.getName());
+        return diary.getName();
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/DiaryInfo")
