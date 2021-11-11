@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface DiaryRepository {
     Diary save(Diary diary);
-    Diary findById(long id);
+    Diary findById(Long id);
     List<Diary> findAll();
 }

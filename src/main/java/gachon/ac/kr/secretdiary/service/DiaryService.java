@@ -7,6 +7,6 @@ import java.util.List;
 public interface DiaryService {
     List<Diary> diaryList();
     Object newDiary(Diary diary);
-    Diary diaryInfo();
-    String decodeDinary();
+    String diaryInfo(Long id);
+    String decodeDinary(Long id, String password);
 }

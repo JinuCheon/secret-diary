@@ -37,11 +37,14 @@ public class ApiController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/DiaryInfo")
     public Object diaryInfo(@RequestParam String id){
-        return id;
+        //String cryptoText = diaryService.diaryInfo(Long.parseLong(id));
+        String cryptoText = "@@@@@@@@@@@@@@@@@@@@@@@############$$$$$$$$$$@@@@@@@@@@@@@@@@@@@@@@@############$$$$$$$$$$@@@@@@@@@@@@@@@@@@@@@@@############$$$$$$$$$$";
+        return cryptoText;
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/DecodeDiary")
-    public Object decodeDiary(@RequestParam Long id){
-        return null;
+    @RequestMapping(method = RequestMethod.POST, path = "/DecodeDiary")
+    public Object decodeDiary(@RequestParam String id, @RequestParam String password){
+        String originalText = diaryService.decodeDinary(Long.parseLong(id), password);
+        return originalText;
     }
 }

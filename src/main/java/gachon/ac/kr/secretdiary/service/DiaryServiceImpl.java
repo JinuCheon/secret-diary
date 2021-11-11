@@ -17,16 +17,20 @@ public class DiaryServiceImpl implements DiaryService{
     @Override
     public Object newDiary(Diary diary) {
         memoryDiaryRepository.save(diary);
+        //인코딩, 압축알고리즘 호출
         return null;
     }
 
     @Override
-    public Diary diaryInfo() {
-        return null;
+    public String diaryInfo(Long id) {
+        Diary diary = memoryDiaryRepository.findById(id);
+        return diary.getCryptoText();
     }
 
     @Override
-    public String decodeDinary() {
-        return null;
+    public String decodeDinary(Long id, String password) {
+        Diary diary = memoryDiaryRepository.findById(id);
+        //디코딩, 압축해제 거쳐야함
+        return diary.getCryptoText();
     }
 }
