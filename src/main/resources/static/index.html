@@ -5,6 +5,32 @@
     <title>Title</title>
 </head>
 <body>
-<p>test page</p>
+    <div id="form">
+        <label>이름</label>
+        <input type="text" name="name" id="name" placeholder="Input your name.">
+        <label>비밀번호</label>
+        <input type="password" name="password" id="password" placeholder="Input password for crypto.">
+        <label>내용</label>
+        <textarea name="text" id="text" cols="30" rows="10"></textarea>
+        <button id="submit" onclick="formSubmit">일기쓰기</button>
+    </div>
+
+</form>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    function formSubmit(){
+        let inputName = document.getElementById("name");
+        let inputPassword = document.getElementById("password");
+        let inputText = document.getElementById("text");
+        axios.request({
+            method: 'POST',
+            url: `http://localhost:3000/api/NewDiary`,
+            headers: {'Content-Type': 'application/json'},
+            params: { name: inputName, password: inputPassword, text: inputText},
+        });
+    }
+
+</script>
 </body>
 </html>

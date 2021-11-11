@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DiaryService {
     List<Diary> diaryList();
-    Object newDiary();
+    Object newDiary(Diary diary);
     Diary diaryInfo();
     String decodeDinary();
 }
