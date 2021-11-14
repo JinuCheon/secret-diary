@@ -44,6 +44,6 @@ public class DiaryServiceImpl implements DiaryService{
     public String decodeDinary(Long id, String password) {
         Diary diary = memoryDiaryRepository.findById(id);
         //디코딩, 압축해제 거쳐야함
-        return diary.getCryptoText();
+        return compressionAlgorithm.decompression(diary.getIncodHeader(), aesAlgorithm.decryption( diary.getCryptoText(), password ) ) ;
     }
 }

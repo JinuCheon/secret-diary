@@ -10,7 +10,7 @@ public class FakeCompressAlgorithm implements CompressionAlgorithm{
     }
 
     @Override
-    public String decompression(String header, int compressedString) {
+    public String decompression(String header, String compressedString) {
         return "decompression: " + compressedString;
     }
 }
