@@ -1,6 +1,8 @@
 package gachon.ac.kr.secretdiary.algorithm;
 
+import gachon.ac.kr.secretdiary.domain.Diary;
+
 public interface CompressionAlgorithm {
-    String compression(String originalString);
+    void compression(Diary diary, String originalString);
     String decompression(String header, int compressedString);
 }

@@ -20,25 +20,18 @@ public class ApiController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/DiaryList")
     public Object diaryList(){
-        System.out.println(diaryService.diaryList());
         return diaryService.diaryList();
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/NewDiary")
     public Object newDiary(NewDiaryForm newDiaryForm){
-        Diary diary = new Diary();
-        diary.setName(newDiaryForm.getName());
-        diary.setIncodedText(newDiaryForm.getText());
-        diary.setCryptoText(newDiaryForm.getText());
-        diaryService.newDiary(diary);
-        System.out.println(diary.getName());
-        return diary.getName();
+        diaryService.newDiary(newDiaryForm);
+        return null;
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/DiaryInfo")
     public Object diaryInfo(@RequestParam String id){
-        //String cryptoText = diaryService.diaryInfo(Long.parseLong(id));
-        String cryptoText = "@@@@@@@@@@@@@@@@@@@@@@@############$$$$$$$$$$@@@@@@@@@@@@@@@@@@@@@@@############$$$$$$$$$$@@@@@@@@@@@@@@@@@@@@@@@############$$$$$$$$$$";
+        String cryptoText = diaryService.diaryInfo(Long.parseLong(id));
         return cryptoText;
     }
 
