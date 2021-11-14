@@ -1,31 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
     <link href="css/index.css" rel="stylesheet" type="text/css" />
-</head>
-<body>
+  </head>
+  <body>
+    <h1>Secret Diary</h1>
     <div id="form">
+      <div class="input">
+        <input
+          class="input-field"
+          type="text"
+          name="name"
+          id="name"
+          placeholder="Input your name."
+        />
         <label>이름</label>
-        <input type="text" name="name" id="name" placeholder="Input your name.">
-        <br>
+      </div>
+      <div class="input">
+        <input
+          class="input-field"
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Input password for crypto."
+        />
         <label>비밀번호</label>
-        <input type="password" name="password" id="password" placeholder="Input password for crypto.">
-        <br>
+      </div>
+      <div class="input">
+        <textarea
+          class="input-field"
+          name="text"
+          id="text"
+          cols="30"
+          rows="10"
+        ></textarea>
         <label>내용</label>
-        <textarea name="text" id="text" cols="30" rows="10"></textarea>
-        <br>
+      </div>
+      <div class="input-action">
         <button id="submit" onclick="formSubmit()">일기쓰기</button>
+      </div>
     </div>
 
     <div id="right">
-        <p>일기 리스트</p>
-        <div id="list">/</div>
+      <p>일기 리스트</p>
+      <div id="list">/</div>
     </div>
-</form>
 
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="js/index.js"></script>
-</body>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/index.js"></script>
+  </body>
 </html>
