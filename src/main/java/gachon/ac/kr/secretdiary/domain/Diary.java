@@ -2,11 +2,28 @@ package gachon.ac.kr.secretdiary.domain;
 
 public class Diary {
     private Long id;
+    private int lengthOfOriginal;
+    private int lengthOfCompressed;
     private String name;
     private String time;
     private String incodHeader;
-    private String incodedText;
     private String cryptoText;
+
+    public int getLengthOfOriginal() {
+        return lengthOfOriginal;
+    }
+
+    public void setLengthOfOriginal(int lengthOfOriginal) {
+        this.lengthOfOriginal = lengthOfOriginal;
+    }
+
+    public int getLengthOfCompressed() {
+        return lengthOfCompressed;
+    }
+
+    public void setLengthOfCompressed(int lengthOfCompressed) {
+        this.lengthOfCompressed = lengthOfCompressed;
+    }
 
     public String getTime() {
         return time;
@@ -38,14 +55,6 @@ public class Diary {
 
     public void setIncodHeader(String incodHeader) {
         this.incodHeader = incodHeader;
-    }
-
-    public String getIncodedText() {
-        return incodedText;
-    }
-
-    public void setIncodedText(String incodedText) {
-        this.incodedText = incodedText;
     }
 
     public String getCryptoText() {

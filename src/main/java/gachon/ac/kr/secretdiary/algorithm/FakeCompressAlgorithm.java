@@ -4,9 +4,10 @@ import gachon.ac.kr.secretdiary.domain.Diary;
 
 public class FakeCompressAlgorithm implements CompressionAlgorithm{
     @Override
-    public void compression(Diary diary, String originalString) {
-        diary.setIncodedText("compression: "+originalString);
+    public String compression(Diary diary, String originalString) {
         diary.setIncodHeader("header");
+        diary.setLengthOfCompressed(originalString.length()/2); //테스트라서 절반값.
+        return "compression: "+originalString;
     }
 
     @Override

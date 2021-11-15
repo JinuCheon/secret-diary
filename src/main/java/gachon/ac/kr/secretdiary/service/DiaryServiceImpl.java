@@ -3,6 +3,7 @@ package gachon.ac.kr.secretdiary.service;
 import gachon.ac.kr.secretdiary.algorithm.*;
 import gachon.ac.kr.secretdiary.domain.Diary;
 import gachon.ac.kr.secretdiary.domain.NewDiaryForm;
+import gachon.ac.kr.secretdiary.dto.DiaryInfo;
 import gachon.ac.kr.secretdiary.repository.DiaryRepository;
 import gachon.ac.kr.secretdiary.repository.MemoryDiaryRepository;
 
@@ -23,6 +24,7 @@ public class DiaryServiceImpl implements DiaryService{
     public Object newDiary(NewDiaryForm newDiaryForm) throws NoSuchAlgorithmException {
         Diary diary = new Diary();
         diary.setName(newDiaryForm.getName());
+        diary.setLengthOfOriginal(newDiaryForm.getText().length());
 
         try {
             //password hash.
@@ -30,9 +32,9 @@ public class DiaryServiceImpl implements DiaryService{
             System.out.println("hash : " + tempHashedPassword);
 
             //인코딩, 압축알고리즘 호출
-            compressionAlgorithm.compression(diary, newDiaryForm.getText());
+            String incodedText = compressionAlgorithm.compression(diary, newDiaryForm.getText());
 
-            diary.setCryptoText(aesAlgorithm.encryption(diary.getIncodedText(), tempHashedPassword)); //aes 암호화(텍스트, 해시)
+            diary.setCryptoText(aesAlgorithm.encryption(incodedText, tempHashedPassword)); //aes 암호화(텍스트, 해시)
         } catch (Exception e){
             System.out.println(e);
         }
@@ -42,9 +44,14 @@ public class DiaryServiceImpl implements DiaryService{
     }
 
     @Override
-    public String diaryInfo(Long id) {
+    public DiaryInfo diaryInfo(Long id) {
+        DiaryInfo diaryInfo = new DiaryInfo();
         Diary diary = memoryDiaryRepository.findById(id);
-        return diary.getCryptoText();
+
+        diaryInfo.setCryptoText(diary.getCryptoText());
+        diaryInfo.setLengthOfOriginal(diary.getLengthOfOriginal());
+        diaryInfo.setLengthOfCompressed(diary.getLengthOfCompressed());
+        return diaryInfo;
     }
 
     @Override

@@ -2,6 +2,7 @@ package gachon.ac.kr.secretdiary.controller;
 
 import gachon.ac.kr.secretdiary.domain.Diary;
 import gachon.ac.kr.secretdiary.domain.NewDiaryForm;
+import gachon.ac.kr.secretdiary.dto.DiaryInfo;
 import gachon.ac.kr.secretdiary.service.DiaryService;
 import gachon.ac.kr.secretdiary.service.DiaryServiceImpl;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.security.NoSuchAlgorithmException;
 @RequestMapping("/api")
 public class ApiController {
     DiaryService diaryService = new DiaryServiceImpl();
+    DiaryInfo diaryInfo = new DiaryInfo();
 
     @RequestMapping(method = RequestMethod.POST, path = "/test")
     public int getRequest(@RequestParam(value = "name") int name) {
@@ -32,8 +34,9 @@ public class ApiController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/DiaryInfo")
     public Object diaryInfo(@RequestParam String id){
-        String cryptoText = diaryService.diaryInfo(Long.parseLong(id));
-        return cryptoText;
+
+        DiaryInfo diaryInfo = diaryService.diaryInfo(Long.parseLong(id));
+        return diaryInfo;
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/DecodeDiary")

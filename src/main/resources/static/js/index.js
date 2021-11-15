@@ -47,10 +47,18 @@ function getList() {
 function openDiary(num){
     axios.get('http://localhost:3000/api/DiaryInfo', {params: {id: num}})
         .then(function (response) {
-            let password = prompt("암호문\n" + response.data, "암호 입력");
+            let compressRate = Math.ceil(response.data.lengthOfCompressed/response.data.lengthOfOriginal*100);
+            let promptMessage =
+`원본 일기 비용 : ${response.data.lengthOfOriginal} / 압축된 일기 비용 : ${response.data.lengthOfCompressed} / 압축률 : ${compressRate}%
+허프만 알고리즘으로 무려 ${response.data.lengthOfOriginal - response.data.lengthOfCompressed}원을 아꼈어요!
+
+서버에 저장된 암호문 :
+${response.data.cryptoText}`
+            let password = prompt(promptMessage, "암호 입력");
 
             axios.post('http://localhost:3000/api/DecodeDiary', null, {params: {id: num, password: password}})
                 .then(function (response) {
+                    console.log(response.data.cryptoText);
                     alert("원본일기\n"+response.data);
                 })
                 .catch(function (error) {
