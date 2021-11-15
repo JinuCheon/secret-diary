@@ -8,4 +8,6 @@ public interface DiaryRepository {
     Diary save(Diary diary);
     Diary findById(Long id);
     List<Diary> findAll();
+    int getTotalLengthOfOriginal();
+    int getTotalLengthOfCompressed();
 }

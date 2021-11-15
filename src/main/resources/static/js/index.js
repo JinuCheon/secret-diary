@@ -32,11 +32,18 @@ function drawTable(searchValue){
     document.getElementById("list").innerHTML = diaryTable;
 }
 
+function drawStatisticsBox(data){
+    document.getElementById("totalTextOriginal").innerHTML = `총 텍스트(원본) : ${data.totalTextOriginal}`;
+    document.getElementById("totalTextCompress").innerHTML = `총 텍스트(압축) : ${data.totalTextCompress}`;
+    document.getElementById("savedMoney").innerHTML = `여러분들이 아낀 총 금액 : ${data.totalTextOriginal - data.totalTextCompress}원`;
+}
+
 function getList() {
     axios.get('http://localhost:3000/api/DiaryList')
         .then(function (response) {
-            diaryList = response.data;
-            console.log(diaryList);
+            console.log(response);
+            diaryList = response.data.diaryList;
+            drawStatisticsBox(response.data);
             drawTable(null);
         })
         .catch(function (error) {
