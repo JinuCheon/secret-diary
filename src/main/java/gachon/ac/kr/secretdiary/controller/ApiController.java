@@ -7,6 +7,7 @@ import gachon.ac.kr.secretdiary.service.DiaryServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.NoSuchAlgorithmException;
 
 @RestController
 @RequestMapping("/api")
@@ -24,7 +25,7 @@ public class ApiController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/NewDiary")
-    public Object newDiary(NewDiaryForm newDiaryForm){
+    public Object newDiary(NewDiaryForm newDiaryForm) throws NoSuchAlgorithmException {
         diaryService.newDiary(newDiaryForm);
         return null;
     }

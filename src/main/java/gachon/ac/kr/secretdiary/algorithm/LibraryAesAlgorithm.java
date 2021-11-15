@@ -17,5 +17,4 @@ public class LibraryAesAlgorithm implements AesAlgorithm{
     public String decryption(String encryptedString, String key) {
         return null;
     }
-
 }

@@ -1,14 +1,12 @@
 package gachon.ac.kr.secretdiary.service;
 
-import gachon.ac.kr.secretdiary.algorithm.AesAlgorithm;
-import gachon.ac.kr.secretdiary.algorithm.CompressionAlgorithm;
-import gachon.ac.kr.secretdiary.algorithm.FakeAesAlgorithm;
-import gachon.ac.kr.secretdiary.algorithm.FakeCompressAlgorithm;
+import gachon.ac.kr.secretdiary.algorithm.*;
 import gachon.ac.kr.secretdiary.domain.Diary;
 import gachon.ac.kr.secretdiary.domain.NewDiaryForm;
 import gachon.ac.kr.secretdiary.repository.DiaryRepository;
 import gachon.ac.kr.secretdiary.repository.MemoryDiaryRepository;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public class DiaryServiceImpl implements DiaryService{
@@ -22,13 +20,17 @@ public class DiaryServiceImpl implements DiaryService{
     }
 
     @Override
-    public Object newDiary(NewDiaryForm newDiaryForm) {
+    public Object newDiary(NewDiaryForm newDiaryForm) throws NoSuchAlgorithmException {
         Diary diary = new Diary();
         diary.setName(newDiaryForm.getName());
 
+        //password hash.
+        String tempHashedPassword = Hash256Algorithm.sha256(newDiaryForm.getPassword());
+        System.out.println("hash : " + tempHashedPassword);
+
         //인코딩, 압축알고리즘 호출
         compressionAlgorithm.compression(diary, newDiaryForm.getText());
-        diary.setCryptoText(aesAlgorithm.encryption(diary.getIncodedText(), newDiaryForm.getPassword())); //aes 암호화
+        diary.setCryptoText(aesAlgorithm.encryption(diary.getIncodedText(), tempHashedPassword)); //aes 암호화
 
         memoryDiaryRepository.save(diary);
         return null;
@@ -44,6 +46,6 @@ public class DiaryServiceImpl implements DiaryService{
     public String decodeDinary(Long id, String password) {
         Diary diary = memoryDiaryRepository.findById(id);
         //디코딩, 압축해제 거쳐야함
-        return compressionAlgorithm.decompression(diary.getIncodHeader(), aesAlgorithm.decryption( diary.getCryptoText(), password ) ) ;
+        return diary.getCryptoText();
     }
 }

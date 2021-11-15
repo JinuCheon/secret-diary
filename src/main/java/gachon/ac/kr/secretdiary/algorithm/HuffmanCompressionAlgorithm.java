@@ -17,7 +17,7 @@ public class HuffmanCompressionAlgorithm implements CompressionAlgorithm{
     }
 
     @Override
-    public String decompression(String header, String compressedString) {
+    public String decompression(String header, int compressedString) {
         //가은님 잘 부탁드립니다.
 
 
