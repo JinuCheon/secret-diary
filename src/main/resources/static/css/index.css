@@ -33,6 +33,22 @@ body {
   float: right;
 }
 
+#statisticsBox {
+  margin-left: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+#statisticsBox > .statistics {
+  margin-right: 3rem;
+}
+
+#statisticsBox > .statistics > span {
+  margin-left: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
 /* iOS Reset */
 input {
   appearance: none;

@@ -1,16 +1,16 @@
 
 let diaryList = [];
 
-(function init(){
+(function init() {
     getList(null);
 }());
 
-function formSubmit(){
+function formSubmit() {
     let inputName = document.getElementById("name").value;
     let inputPassword = document.getElementById("password").value;
     let inputText = document.getElementById("text").value;
     console.log(inputName, inputPassword, inputText);
-    axios.post('http://localhost:3000/api/NewDiary', null, {params: {name: inputName, password: inputPassword, text: inputText}})
+    axios.post('http://localhost:3000/api/NewDiary', null, { params: { name: inputName, password: inputPassword, text: inputText } })
         .then(() => getList(null)); //화면 그리기 비동기 처리
 
     // axios.request({
@@ -21,21 +21,21 @@ function formSubmit(){
     // }).then(() => getList());
 
 }
-function drawTable(searchValue){
+function drawTable(searchValue) {
     console.log(searchValue)
     let diaryTable = "<table><th>글번호</th><th>이름</th><th>작성시간</th>"
-    for(let i=diaryList.length - 1;i>=0;i--){
-        if(searchValue == "" || searchValue == null || searchValue == diaryList[i].name)
-            diaryTable+=`<tr><td>${diaryList[i].id}</td><td>${diaryList[i].name}</td><td>${diaryList[i].time}</td><td><button onclick="openDiary(${diaryList[i].id})">일기 열람</button></td></tr>`
+    for (let i = diaryList.length - 1; i >= 0; i--) {
+        if (searchValue == "" || searchValue == null || searchValue == diaryList[i].name)
+            diaryTable += `<tr><td>${diaryList[i].id}</td><td>${diaryList[i].name}</td><td>${diaryList[i].time}</td><td><button onclick="openDiary(${diaryList[i].id})">일기 열람</button></td></tr>`
     }
     diaryTable += "</table>"
     document.getElementById("list").innerHTML = diaryTable;
 }
 
-function drawStatisticsBox(data){
-    document.getElementById("totalTextOriginal").innerHTML = `총 텍스트(원본) : ${data.totalTextOriginal}`;
-    document.getElementById("totalTextCompress").innerHTML = `총 텍스트(압축) : ${data.totalTextCompress}`;
-    document.getElementById("savedMoney").innerHTML = `여러분들이 아낀 총 금액 : ${data.totalTextOriginal - data.totalTextCompress}원`;
+function drawStatisticsBox(data) {
+    document.getElementById("totalTextOriginal").innerHTML = data.totalTextOriginal;
+    document.getElementById("totalTextCompress").innerHTML = data.totalTextCompress;
+    document.getElementById("savedMoney").innerHTML = `${data.totalTextOriginal - data.totalTextCompress}원`;
 }
 
 function getList() {
@@ -51,25 +51,46 @@ function getList() {
         })
 }
 
-function openDiary(num){
-    axios.get('http://localhost:3000/api/DiaryInfo', {params: {id: num}})
+function openDiary(num) {
+    axios.get('http://localhost:3000/api/DiaryInfo', { params: { id: num } })
         .then(function (response) {
-            let compressRate = Math.ceil(response.data.lengthOfCompressed/response.data.lengthOfOriginal*100);
+            let compressRate = Math.ceil(response.data.lengthOfCompressed / response.data.lengthOfOriginal * 100);
             let promptMessage =
-`원본 일기 비용 : ${response.data.lengthOfOriginal} / 압축된 일기 비용 : ${response.data.lengthOfCompressed} / 압축률 : ${compressRate}%
+                `원본 일기 비용 : ${response.data.lengthOfOriginal} / 압축된 일기 비용 : ${response.data.lengthOfCompressed} / 압축률 : ${compressRate}%
 허프만 알고리즘으로 무려 ${response.data.lengthOfOriginal - response.data.lengthOfCompressed}원을 아꼈어요!
 
 서버에 저장된 암호문 :
 ${response.data.cryptoText}`
-            let password = prompt(promptMessage, "암호 입력");
+            //let password = prompt(promptMessage, "암호 입력");
+            const getPassword = async () => {
+                const { value: password } = await swal.fire({
+                    // title: "Enter your password",
+                    input: "password",
+                    inputLabel: promptMessage,
+                    inputPlaceholder: "Enter your password",
+                    inputAttributes: {
+                        maxlength: 10,
+                        autocapitalize: "off",
+                        autocorrect: "off",
+                    },
+                });
+                if (password) {
+                    axios.post('http://localhost:3000/api/DecodeDiary', null, { params: { id: num, password: password } })
+                        .then(function (response) {
+                            console.log(response.data.cryptoText);
+                            Swal.fire(
+                                '원본 일기',
+                                response.data,
+                                'info'
+                            );
+                        })
+                        .catch(function (error) {
+                        })
+                }
+            };
+            getPassword();
 
-            axios.post('http://localhost:3000/api/DecodeDiary', null, {params: {id: num, password: password}})
-                .then(function (response) {
-                    console.log(response.data.cryptoText);
-                    alert("원본일기\n"+response.data);
-                })
-                .catch(function (error) {
-                })
+
 
             //패스워드, index 보내서 평문 복구
         })
@@ -77,6 +98,6 @@ ${response.data.cryptoText}`
         })
 }
 
-function searchBoxEvent(){
+function searchBoxEvent() {
     drawTable(document.getElementById("searchBox").value);
 }
