@@ -1,0 +1,168 @@
+@charset "UTF-8";
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+}
+
+h1 {
+  padding-top: 1rem;
+  padding-left: 3rem;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  background-color: #f9f9f9;
+}
+
+#form {
+  padding: 2rem 3rem;
+  width: 35%;
+  float: left;
+  background-color: #f9f9f9;
+}
+
+#right {
+  width: 65%;
+  float: right;
+}
+
+#statisticsBox {
+  margin-left: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+#statisticsBox > .statistics {
+  margin-right: 3rem;
+}
+
+#statisticsBox > .statistics > span {
+  margin-left: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* iOS Reset */
+input {
+  appearance: none;
+  border-radius: 0;
+}
+
+form {
+  padding: 1.3rem;
+}
+
+.input {
+  display: flex;
+  flex-direction: column-reverse;
+  position: relative;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+label {
+  color: #8597a3;
+  position: absolute;
+  top: 1.5rem;
+  transition: 0.25s ease;
+}
+
+.input-field {
+  border: 0;
+  z-index: 1;
+  background-color: transparent;
+  border-bottom: 2px solid #eee;
+  font: inherit;
+  font-size: 1.125rem;
+  padding: 0.25rem 0;
+}
+
+.input-field:focus {
+  outline: 0;
+  border-bottom-color: #0d85ad;
+}
+
+.input-field + label {
+  color: #0d85ad;
+  transform: translateY(-1.5rem);
+}
+
+textarea.input-field {
+  height: 4rem;
+  line-height: 1.5;
+  resize: none;
+}
+
+.input-action {
+  margin-top: 2rem;
+}
+
+button {
+  font-weight: 500;
+  -webkit-appearance: none;
+  color: #fff;
+  border: 0;
+}
+
+button#submit {
+  font-size: 1rem;
+  padding: 1em;
+  width: 100%;
+  background-color: #0a90bd;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+}
+
+button#submit:focus {
+  outline: 0;
+}
+
+#right > p {
+  font-size: 1.5rem;
+}
+
+table {
+  width: 90%;
+  margin: 10px 0;
+  border-collapse: collapse;
+}
+
+tr:first-child {
+  border: 2px solid #099ccd;
+  border-left: none;
+  border-right: none;
+}
+
+tr {
+  border: 1px solid #ccc;
+  border-left: none;
+  border-right: none;
+}
+
+td,
+th {
+  padding: 10px;
+  text-align: center;
+}
+
+td:first-child {
+  width: 5rem;
+}
+
+td:last-child {
+  width: 6rem;
+}
+
+td > button {
+  padding: 0.35em 0.4em;
+  background-color: #0a90bd;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}

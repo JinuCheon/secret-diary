@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <link href="css/index.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Secret Diary</h1>
+    <div id="statisticsBox">
+      <span class="statistics"
+        >총 텍스트(원본)<span id="totalTextOriginal">0</span></span
+      >
+      <span class="statistics"
+        >총 텍스트(압축)<span id="totalTextCompress">0</span></span
+      >
+      <span class="statistics"
+        >여러분들이 아낀 총 금액<span id="savedMoney">0</span></span
+      >
+    </div>
+    <div id="form">
+      <div class="input">
+        <input
+          class="input-field"
+          type="text"
+          name="name"
+          id="name"
+          placeholder="Input your name."
+        />
+        <label>이름</label>
+      </div>
+      <div class="input">
+        <input
+          class="input-field"
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Input password for crypto."
+        />
+        <label>비밀번호</label>
+      </div>
+      <div class="input">
+        <textarea
+          class="input-field"
+          name="text"
+          id="text"
+          cols="30"
+          rows="10"
+        ></textarea>
+        <label>내용</label>
+      </div>
+      <div class="input-action">
+        <button id="submit" onclick="formSubmit()">일기쓰기</button>
+      </div>
+    </div>
+
+    <div id="right">
+      <p>일기 리스트</p>
+      <div id="searchArea">
+        <!--<p>이름으로 검색하기</p>-->
+        <input
+          type="text"
+          id="searchBox"
+          class="input-field"
+          placeholder="검색할 이름 입력"
+          onkeyup="searchBoxEvent()"
+        />
+      </div>
+      <div id="list">/</div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.10/dist/sweetalert2.all.min.js"
+      integrity="sha256-jAlCMntTd9fGH88UcgMsYno5+/I0cUCWdSjJ9qHMFRY="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/index.js"></script>
+  </body>
+</html>

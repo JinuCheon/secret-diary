@@ -1,6 +1,6 @@
 
 let diaryList = [];
-let server_url = 'http://localhost:3000'
+
 (function init() {
     getList(null);
 }());
@@ -10,7 +10,7 @@ function formSubmit() {
     let inputPassword = document.getElementById("password").value;
     let inputText = document.getElementById("text").value;
     console.log(inputName, inputPassword, inputText);
-    axios.post(server_url+'/api/NewDiary', null, { params: { name: inputName, password: inputPassword, text: inputText } })
+    axios.post('http://localhost:3000/api/NewDiary', null, { params: { name: inputName, password: inputPassword, text: inputText } })
         .then(() => getList(null)); //화면 그리기 비동기 처리
 
     // axios.request({
@@ -39,7 +39,7 @@ function drawStatisticsBox(data) {
 }
 
 function getList() {
-    axios.get(server_url+'/api/DiaryList')
+    axios.get('http://localhost:3000/api/DiaryList')
         .then(function (response) {
             console.log(response);
             diaryList = response.data.diaryList;
@@ -52,7 +52,7 @@ function getList() {
 }
 
 function openDiary(num) {
-    axios.get(server_url+'/api/DiaryInfo', { params: { id: num } })
+    axios.get('http://localhost:3000/api/DiaryInfo', { params: { id: num } })
         .then(function (response) {
             let compressRate = Math.ceil(response.data.lengthOfCompressed / response.data.lengthOfOriginal * 100);
             let promptMessage =
@@ -75,7 +75,7 @@ ${response.data.cryptoText}`
                     },
                 });
                 if (password) {
-                    axios.post(server_url+'/api/DecodeDiary', null, { params: { id: num, password: password } })
+                    axios.post('http://localhost:3000/api/DecodeDiary', null, { params: { id: num, password: password } })
                         .then(function (response) {
                             console.log(response.data.cryptoText);
                             Swal.fire(
