@@ -1,7 +1,9 @@
 
 let diaryList = [];
-let server_url = 'http://localhost:3000'
+let server_url = 'http://localhost:3000';
+
 (function init() {
+    server_url = 'http://localhost:3000';
     getList(null);
 }());
 
