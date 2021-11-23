@@ -67,7 +67,7 @@ form {
   padding-bottom: 1.5rem;
 }
 
-label {
+label:not(.swal2-input-label) {
   color: #8597a3;
   position: absolute;
   top: 1.5rem;
