@@ -1,9 +1,9 @@
 
 let diaryList = [];
-let server_url = 'http://http://3.22.3.98/:80';
+let server_url = 'http://3.22.3.98:80';
 
 (function init() {
-    server_url = 'http://http://3.22.3.98/:80';
+    server_url = 'http://3.22.3.98:80';
     getList(null);
 }());
 
