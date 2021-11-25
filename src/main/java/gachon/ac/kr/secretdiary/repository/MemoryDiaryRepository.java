@@ -20,7 +20,7 @@ public class MemoryDiaryRepository implements DiaryRepository{
         SimpleDateFormat fourteen_format = new SimpleDateFormat("yy/MM/dd mm:ss");;
 
         diary.setTime(fourteen_format.format(date_now));
-        lengthOfOriginal += diary.getLengthOfOriginal() * 2;
+        lengthOfOriginal += diary.getLengthOfOriginal();
         lengthOfCompressed += diary.getLengthOfCompressed();
         store.put(diary.getId(), diary);
         return null;

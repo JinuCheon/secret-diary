@@ -23,12 +23,8 @@ public class DiaryServiceImpl implements DiaryService{
     public NewDiary diaryList() {
         NewDiary newDiary = new NewDiary();
         newDiary.setDiaryList(memoryDiaryRepository.findAll());
-        newDiary.setTotalTextOriginal(memoryDiaryRepository.getTotalLengthOfOriginal()); //갔다와서 클래스 두 개 만들고 자.
+        newDiary.setTotalTextOriginal(memoryDiaryRepository.getTotalLengthOfOriginal());
         newDiary.setTotalTextCompress(memoryDiaryRepository.getTotalLengthOfCompressed());
-//        System.out.println("diaryList오리지날 :"+newDiary.getTotalTextOriginal());
-//        System.out.println("diaryList압축 :"+newDiary.getTotalTextCompress());
-
-
         return newDiary;
     }
 
@@ -69,26 +65,16 @@ public class DiaryServiceImpl implements DiaryService{
 
     @Override
     public String decodeDinary(Long id, String password) {
-        System.out.println("check point 1");
         Diary diary = memoryDiaryRepository.findById(id);
-
-
-
         String result = "";
-        //디코딩, 압축해제 거쳐야함
         try{
             String tempHashedPassword = Hash256Algorithm.sha256(password);
-            System.out.println("check point 2 : "+tempHashedPassword);
             System.out.println(diary.getCryptoText() + "//" + tempHashedPassword);
             result = aesAlgorithm.decryption(diary.getCryptoText(), tempHashedPassword); //aes 암호화(텍스트, 해시)
-            System.out.println("check point 3 : "+result);
             result = compressionAlgorithm.decompression(diary.getIncodHeader(), result); //압축해제
-            System.out.println("check point 4 : "+result);
-
         } catch (Exception e){
             System.out.println(e);
         }
-
         return result;
     }
 }
