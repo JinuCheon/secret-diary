@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
+    <title>비밀일기장</title>
     <link href="css/index.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <h1>Secret Diary</h1>
+    <image id="logo" src="image/logo.png"></image>
     <div id="statisticsBox">
       <span class="statistics"
         >총 텍스트(원본)<span id="totalTextOriginal">0</span></span
@@ -25,20 +25,24 @@
           type="text"
           name="name"
           id="name"
-          placeholder="Input your name."
+          placeholder="이름을 입력해주세요."
         />
-        <label>이름</label>
+      <label>이름</label>
       </div>
+
+      <br/>
       <div class="input">
         <input
           class="input-field"
           type="password"
           name="password"
           id="password"
-          placeholder="Input password for crypto."
+          placeholder="비밀번호를 4자리 이상 입력해주세요."
         />
         <label>비밀번호</label>
       </div>
+
+      <br/>
       <div class="input">
         <textarea
           class="input-field"
@@ -46,8 +50,9 @@
           id="text"
           cols="30"
           rows="10"
+          placeholder="오늘 있었던 일을 5글자 이상 작성해주세요."
         ></textarea>
-        <label>내용</label>
+        <label>일기를 작성해주세요!</label>
       </div>
       <div class="input-action">
         <button id="submit" onclick="formSubmit()">일기쓰기</button>

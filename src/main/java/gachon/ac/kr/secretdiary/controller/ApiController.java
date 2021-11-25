@@ -8,6 +8,7 @@ import gachon.ac.kr.secretdiary.service.DiaryServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 @RestController
@@ -27,7 +28,7 @@ public class ApiController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/NewDiary")
-    public Object newDiary(NewDiaryForm newDiaryForm) throws NoSuchAlgorithmException {
+    public Object newDiary(NewDiaryForm newDiaryForm) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         diaryService.newDiary(newDiaryForm);
         return null;
     }

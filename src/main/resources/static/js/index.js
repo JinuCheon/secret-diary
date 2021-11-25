@@ -1,16 +1,33 @@
 
 let diaryList = [];
-let server_url = 'http://3.22.3.98:80';
+let server_url = 'http://http://3.22.3.98/:80';
 
 (function init() {
-    server_url = 'http://3.22.3.98:80';
+    server_url = 'http://http://3.22.3.98/:80';
     getList(null);
 }());
 
 function formSubmit() {
+    if(document.getElementById("name").value.length < 2){
+        alert("이름을 두 글자 이상 입력해주세요!");
+        return;
+    }
+    if(document.getElementById("password").value.length < 4){
+        alert("비밀번호를 4글자 이상 입력해주세요!");
+        return;
+    }
+    if(document.getElementById("text").value.length < 5){
+        alert("일기 내용을 5글자 이상 입력해주세요!");
+        return;
+    }
     let inputName = document.getElementById("name").value;
     let inputPassword = document.getElementById("password").value;
     let inputText = document.getElementById("text").value;
+
+    document.getElementById("name").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("text").value = "";
+
     console.log(inputName, inputPassword, inputText);
     axios.post(server_url+'/api/NewDiary', null, { params: { name: inputName, password: inputPassword, text: inputText } })
         .then(() => getList(null)); //화면 그리기 비동기 처리
@@ -35,9 +52,9 @@ function drawTable(searchValue) {
 }
 
 function drawStatisticsBox(data) {
-    document.getElementById("totalTextOriginal").innerHTML = data.totalTextOriginal;
-    document.getElementById("totalTextCompress").innerHTML = data.totalTextCompress;
-    document.getElementById("savedMoney").innerHTML = `${data.totalTextOriginal - data.totalTextCompress}원`;
+    document.getElementById("totalTextOriginal").innerHTML = data.totalTextOriginal+'bit';
+    document.getElementById("totalTextCompress").innerHTML = data.totalTextCompress+'bit';
+    document.getElementById("savedMoney").innerHTML = data.totalTextOriginal - data.totalTextCompress+'bit';
 }
 
 function getList() {
@@ -57,12 +74,14 @@ function openDiary(num) {
     axios.get(server_url+'/api/DiaryInfo', { params: { id: num } })
         .then(function (response) {
             let compressRate = Math.ceil(response.data.lengthOfCompressed / response.data.lengthOfOriginal * 100);
+            let cryptoText = response.data.cryptoText;
+            cryptoText = cryptoText.replace(/(.{50})/g,"$1\n")
             let promptMessage =
                 `원본 일기 비용 : ${response.data.lengthOfOriginal} / 압축된 일기 비용 : ${response.data.lengthOfCompressed} / 압축률 : ${compressRate}%
 허프만 알고리즘으로 무려 ${response.data.lengthOfOriginal - response.data.lengthOfCompressed}원을 아꼈어요!
 
 서버에 저장된 암호문 :
-${response.data.cryptoText}`
+${cryptoText}`
             //let password = prompt(promptMessage, "암호 입력");
             const getPassword = async () => {
                 const { value: password } = await swal.fire({

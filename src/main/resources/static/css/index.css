@@ -21,6 +21,13 @@ body {
   background-color: #f9f9f9;
 }
 
+#logo{
+  width: 300px;
+  height: auto;
+  margin-left: 3rem;
+  margin-top: 50px;
+  margin-bottom: 15px;
+}
 #form {
   padding: 2rem 3rem;
   width: 35%;
@@ -95,9 +102,9 @@ label:not(.swal2-input-label) {
 }
 
 textarea.input-field {
-  height: 4rem;
+  height: 15rem;
   line-height: 1.5;
-  resize: none;
+  resize: vertical;;
 }
 
 .input-action {

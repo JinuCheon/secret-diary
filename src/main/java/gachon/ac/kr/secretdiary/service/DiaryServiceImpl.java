@@ -9,6 +9,8 @@ import gachon.ac.kr.secretdiary.dto.ReturnCompressResult;
 import gachon.ac.kr.secretdiary.repository.DiaryRepository;
 import gachon.ac.kr.secretdiary.repository.MemoryDiaryRepository;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
@@ -31,13 +33,14 @@ public class DiaryServiceImpl implements DiaryService{
     }
 
     @Override
-    public Object newDiary(NewDiaryForm newDiaryForm) throws NoSuchAlgorithmException {
+    public Object newDiary(NewDiaryForm newDiaryForm) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         Diary diary = new Diary();
         try {
             //password hash.
             String tempHashedPassword = Hash256Algorithm.sha256(newDiaryForm.getPassword());
             //인코딩, 압축알고리즘 호출
             ReturnCompressResult returnCompressResult = compressionAlgorithm.compression(newDiaryForm.getText());
+            diary.setLengthOfCompressed(returnCompressResult.getResult().length());
             diary.setIncodHeader(returnCompressResult.getHeader());
 
 
@@ -47,7 +50,7 @@ public class DiaryServiceImpl implements DiaryService{
         }
 
         diary.setName(newDiaryForm.getName());
-        diary.setLengthOfOriginal(newDiaryForm.getText().length());
+        diary.setLengthOfOriginal(newDiaryForm.getText().getBytes("euc-kr").length * 8); //1byte = 8bit
         memoryDiaryRepository.save(diary);
         return null;
     }
@@ -60,15 +63,6 @@ public class DiaryServiceImpl implements DiaryService{
         diaryInfo.setCryptoText(diary.getCryptoText());
         diaryInfo.setLengthOfOriginal(diary.getLengthOfOriginal());
         diaryInfo.setLengthOfCompressed(diary.getLengthOfCompressed());
-
-        System.out.println("here is info");
-        System.out.println(diary.getId());
-        System.out.println(diary.getLengthOfOriginal());
-        System.out.println(diary.getLengthOfCompressed());
-        System.out.println(diary.getTime());
-        System.out.println(diary.getIncodHeader());
-        System.out.println(diary.getCryptoText());
-        System.out.println("end of info");
 
         return diaryInfo;
     }
