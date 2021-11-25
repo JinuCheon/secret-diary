@@ -1,17 +1,21 @@
 package gachon.ac.kr.secretdiary.algorithm;
 
 import gachon.ac.kr.secretdiary.domain.Diary;
+import gachon.ac.kr.secretdiary.dto.ReturnCompressResult;
+
+import java.util.HashMap;
 
 public class FakeCompressAlgorithm implements CompressionAlgorithm{
     @Override
-    public String compression(Diary diary, String originalString) {
-        diary.setIncodHeader("header");
-        diary.setLengthOfCompressed(originalString.length()/2); //테스트라서 절반값.
-        return "compression: "+originalString;
+    public ReturnCompressResult compression(String originalString) {
+        ReturnCompressResult returnCompressResult = new ReturnCompressResult();
+        returnCompressResult.setResult(null);
+        returnCompressResult.setHeader(null); //테스트라서 절반값.
+        return null;
     }
 
     @Override
-    public String decompression(String header, String compressedString) {
+    public String decompression(HashMap<Character, String> header, String compressedString) {
         return "decompression: " + compressedString;
     }
 }

@@ -1,13 +1,24 @@
 package gachon.ac.kr.secretdiary.domain;
 
+import java.util.HashMap;
+
 public class Diary {
     private Long id;
     private int lengthOfOriginal;
     private int lengthOfCompressed;
     private String name;
     private String time;
-    private String incodHeader;
+    private HashMap<Character, String> incodHeader;
+    private HashMap<Character, String> incodeHeader;
     private String cryptoText;
+
+    public HashMap<Character, String> getIncodeHeader() {
+        return incodeHeader;
+    }
+
+    public void setIncodeHeader(HashMap<Character, String> incodeHeader) {
+        this.incodeHeader = incodeHeader;
+    }
 
     public int getLengthOfOriginal() {
         return lengthOfOriginal;
@@ -45,16 +56,16 @@ public class Diary {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getIncodHeader() {
+    public HashMap<Character, String> getIncodHeader() {
         return incodHeader;
     }
 
-    public void setIncodHeader(String incodHeader) {
+    public void setIncodHeader(HashMap<Character, String> incodHeader) {
         this.incodHeader = incodHeader;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCryptoText() {
