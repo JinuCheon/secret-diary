@@ -17,7 +17,7 @@ public class MemoryDiaryRepository implements DiaryRepository{
         diary.setId(sequence++);
 
         Date date_now = new Date(System.currentTimeMillis());
-        SimpleDateFormat fourteen_format = new SimpleDateFormat("yy/MM/dd mm:ss");;
+        SimpleDateFormat fourteen_format = new SimpleDateFormat("yy/MM/dd HH:mm:ss");
 
         diary.setTime(fourteen_format.format(date_now));
         lengthOfOriginal += diary.getLengthOfOriginal();
