@@ -15,12 +15,15 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public class DiaryServiceImpl implements DiaryService{
+    //핵심 비즈니스 로직의 전체적인 그림이 담겨있습니다.
+
     DiaryRepository memoryDiaryRepository = new MemoryDiaryRepository();
     CompressionAlgorithm compressionAlgorithm = new HuffmanCompressionAlgorithm();
     AesAlgorithm aesAlgorithm = new LibraryAesAlgorithm();
 
     @Override
     public NewDiary diaryList() {
+        //모든 다이어리 리스트를 불러옵니다.
         NewDiary newDiary = new NewDiary();
         newDiary.setDiaryList(memoryDiaryRepository.findAll());
         newDiary.setTotalTextOriginal(memoryDiaryRepository.getTotalLengthOfOriginal());
@@ -30,6 +33,7 @@ public class DiaryServiceImpl implements DiaryService{
 
     @Override
     public Object newDiary(NewDiaryForm newDiaryForm) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        //새로운 다이어리 생성
         Diary diary = new Diary();
         try {
             //password hash.
@@ -53,6 +57,7 @@ public class DiaryServiceImpl implements DiaryService{
 
     @Override
     public DiaryInfo diaryInfo(Long id) {
+        //선택된 다이어리의 정보 호출
         DiaryInfo diaryInfo = new DiaryInfo();
         Diary diary = memoryDiaryRepository.findById(id);
 
@@ -65,6 +70,7 @@ public class DiaryServiceImpl implements DiaryService{
 
     @Override
     public String decodeDinary(Long id, String password) {
+        //다이어리 복호화 시도
         Diary diary = memoryDiaryRepository.findById(id);
         String result = "";
         try{

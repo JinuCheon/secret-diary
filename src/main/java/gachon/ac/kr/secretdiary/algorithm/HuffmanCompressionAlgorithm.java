@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 public class HuffmanCompressionAlgorithm implements CompressionAlgorithm{
 
 
+    //실제로 강형래 님이 구현한 huffman compress code 입니다.
 
     @Override
     public ReturnCompressResult compression(String originalString) {
@@ -105,10 +106,11 @@ public class HuffmanCompressionAlgorithm implements CompressionAlgorithm{
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+
+    //실제로 김가은님이 구현한 허프만 복호화 코드입니다.
     @Override
     public String decompression(HashMap<Character, String> header, String compressedString) {
 
-        //가은님 잘 부탁드립니다.
         StringBuilder sb = new StringBuilder();//출력할 문장(복원된 문장, string의 형태로 이어붙임)
         String Temp = "";//일시적으로 하나의 단어를 저장해둘 변수
         for(char originalData : compressedString.toCharArray()) {//압축된 상태의 글을 char의 형태로 잘라서 array에 저장

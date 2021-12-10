@@ -1,6 +1,6 @@
 
 let diaryList = [];
-let server_url = 'http://3.22.3.98:80';
+let server_url = 'http://3.22.3.98:80'; //실제 동작하는 서버입니다. 접속 가능합니다.
 // let server_url = 'http://localhost:80';
 
 (function init() {
@@ -10,6 +10,9 @@ let server_url = 'http://3.22.3.98:80';
 }());
 
 function formSubmit() {
+    //폼을 입력하는 곳의 동작입니다.
+    //불필요한 데이터를 막기 위해, UX 예외처리를 하였습니다.
+
     if(document.getElementById("name").value.length < 2){
         alert("이름을 두 글자 이상 입력해주세요!");
         return;
@@ -31,6 +34,8 @@ function formSubmit() {
     document.getElementById("text").value = "";
 
     console.log(inputName, inputPassword, inputText);
+
+    // 새로운 일기를 POST 요청을 통해 axios 비동기로 처리합니다.
     axios.post(server_url+'/api/NewDiary', null, { params: { name: inputName, password: inputPassword, text: inputText } })
         .then(() => getList(null)); //화면 그리기 비동기 처리
 
@@ -42,7 +47,13 @@ function formSubmit() {
     // }).then(() => getList());
 
 }
+
+//일기의 리스트를 가져오는 곳입니다.
+
+//발표와 ppt에서는 생략되었는데,
+//이름으로 내가 쓴 일기만을 표시할 수 있게끔 기능을 만들어보았습니다.
 function drawTable(searchValue) {
+    //여기서 테이블은 일기의 리스트를 담는 곳입니다.
     console.log(searchValue)
     let diaryTable = "<table><th>글번호</th><th>이름</th><th>작성시간</th>"
     for (let i = diaryList.length - 1; i >= 0; i--) {
@@ -54,12 +65,18 @@ function drawTable(searchValue) {
 }
 
 function drawStatisticsBox(data) {
+    //회원들이 총 얼마를 아꼈는지, 통계를 업데이트해주는 영역입니다.
     document.getElementById("totalTextOriginal").innerHTML = data.totalTextOriginal+'bit';
     document.getElementById("totalTextCompress").innerHTML = data.totalTextCompress+'bit';
     document.getElementById("savedMoney").innerHTML = data.totalTextOriginal - data.totalTextCompress+'bit';
 }
 
 function getList() {
+    //모든 다이어리 리스트를 가져옵니다.
+    //객체로 전체 다이어리의 간략한 정보만 가져오고,
+    //렌더링 해주는 방식입니다.
+
+    //비동기 처리로 동작합니다.
     axios.get(server_url+'/api/DiaryList')
         .then(function (response) {
             console.log(response);
@@ -73,6 +90,9 @@ function getList() {
 }
 
 function openDiary(num) {
+
+    //작성한 다이어리를 열람할 때 동작입니다.
+    //여기서부터는 alert 과 confirm을 기반으로 단계별 동작합니다.
     axios.get(server_url+'/api/DiaryInfo', { params: { id: num } })
         .then(function (response) {
             let compressRate = Math.ceil(response.data.lengthOfCompressed / response.data.lengthOfOriginal * 100);
@@ -97,6 +117,8 @@ ${cryptoText}`
                         autocorrect: "off",
                     },
                 });
+
+                //패스워드를 입력하고, 실제 원본 데이터를 불러오는 영역입니다.
                 if (password) {
                     axios.post(server_url+'/api/DecodeDiary', null, { params: { id: num, password: password } })
                         .then(function (response) {
@@ -112,15 +134,13 @@ ${cryptoText}`
                 }
             };
             getPassword();
-
-
-
             //패스워드, index 보내서 평문 복구
         })
         .catch(function (error) {
         })
 }
 
+//이름으로 검색을 가능하게 했습니다.
 function searchBoxEvent() {
     drawTable(document.getElementById("searchBox").value);
 }
