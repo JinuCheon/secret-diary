@@ -2,8 +2,7 @@
 
 알고리즘 team project입니다.
 
-실제 동작을 확인할 수 있습니다.
-http://3.22.3.98/
+Huffman, RSA, HASH 알고리즘을 이용하여
+비밀 압축 일기장을 만들었습니다.
 
-2021년까지는 호스팅하겠습니다.
-모두 고생많으셨습니다.
+![image](https://user-images.githubusercontent.com/76773202/147166620-986cfd0e-5900-4fd7-9efe-e6110122208d.png)
